@@ -55,7 +55,7 @@ public class Validition extends HttpServlet {
         String phone_number=req.getParameter("phone_number");
         float card_lmit=Float.parseFloat(req.getParameter("cedit_limit"));
 //        int phone=Integer.parseInt(phone_number);
-        out.println(username+":user \t "+pass+":pass\t "+email+":em\t "+job+":j\t "+birthday+":birt\t "+address+":add\t "+interest+":inte\t "+"+2"+phone_number+":phone \t "+card_lmit);
+//        out.println(username+":user \t "+pass+":pass\t "+email+":em\t "+job+":j\t "+birthday+":birt\t "+address+":add\t "+interest+":inte\t "+"+2"+phone_number+":phone \t "+card_lmit);
         HttpSession newsesession=req.getSession(true);
 //        phone_number="+2".concat(phone_number);
        try{
@@ -83,6 +83,7 @@ public class Validition extends HttpServlet {
            Connection con =new ConnectToDataBase().getconnection();
            String sql="insert into users(name,password,address,email,msisdn,credit_limit,interest,barthdate,group_type) values "
                    + "('"+username+"','"+pass+"','"+address+"','"+email+"','"+phone_number+"',"+card_lmit+",'"+interest+"','"+birthday+"','user');";
+                   System.out.println("username:"+username+"password: "+pass+"address: "+address+"eamil: "+email+"phone: "+ phone_number+"cardnumbe: "+card_lmit+"interest: "+interest+"birthdate: "+birthday);
                    Statement st=con.createStatement();
                    Integer rs= st.executeUpdate(sql);
                    if(rs==1){
