@@ -14,7 +14,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">    
-        <title>JSP Page</title>
+        <title>phone list page</title>
         <link rel="stylesheet" href="css/List.css">
     </head>
     <body>
@@ -49,26 +49,43 @@
             prod_src_arr = prod_src.toArray(prod_src_arr);
             int i = 0;
 //            
-            re=st.executeQuery(sql);
-            while (re.next()) {
+            re = st.executeQuery(sql);
+            while (i < prod_price_arr.length) {
         %>
-        <main>
+        <main id="main1">
             <div class="product">
                 <img src="<%out.print(prod_src_arr[i]);%>" alt="Product Image">
-                <!--<h2><% //out.print(prod_name_arr[i]);%></h2>-->
-                <h2><%out.print(re.getString("prod_name"));%></h2>
-                <!--<p><% //out.print(prod_descrip_arr[i]);%></p>-->
-                <p><%out.print(re.getString("prod_description"));%></p>
-                <!--<p><% //out.print(prod_price_arr[i]);%></p>-->
-                <p><%out.print(re.getString("prod_price").toString());%></p>
-                <button>Add to Cart</button>
+                <h2><%out.print(prod_name_arr[i]);%></h2>
+                <!--<h2><% //out.print(re.getString("prod_name"));%></h2>-->
+                <p><%out.print(prod_descrip_arr[i]);%></p>
+                <!--<p><% //out.print(re.getString("prod_description"));%></p>-->
+                <p><%out.print(prod_price_arr[i]);%></p>
+                <!--<p><% //out.print(re.getString("prod_price").toString());%></p>-->
+                <button id="but<%=i + 1%>" class="add-to-cart">Add to Cart</button>
             </div>            
-
         </main>
-
-
-
-        <%i++;}
+        <%i++;
+            }
+//        int iterator=0;
 %>
+        <script>
+            let but = document.getElementById("but1");
+            but.addEventListener("click", () => {
+                let xhr = new XMLHttpRequest();
+                xhr.open("POST", "Inserttocard");
+                xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xhr.onreadystatechange = function () {
+                    if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                        if (this.responseText === "success") {
+                            alert("Inserted into database!");
+                        } else {
+                            alert("Insert failed");
+                        }
+                    }
+                };
+                xhr.send("prod_id=1&prod_price=1000&cardp_quantity=12"); // Replace with your actual data
+            });
+
+        </script>
     </body>
 </html>

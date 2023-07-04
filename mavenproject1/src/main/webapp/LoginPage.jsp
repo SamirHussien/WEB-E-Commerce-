@@ -37,13 +37,12 @@
                     String inter = re.getString("interest");
                     newsesession = request.getSession(true);
                     newsesession.setAttribute("login", "true");
-                    //            newsesession.getAttribute("login").equals("true")
                     if (group.equalsIgnoreCase("user") && inter.equalsIgnoreCase("phone") && newsesession != null) {
                         response.sendRedirect("Phone_User_List.jsp");
                     } else if (group.equalsIgnoreCase("user") && inter.equalsIgnoreCase("labtop") && newsesession != null) {
                         response.sendRedirect("Labtop_User_List.jsp");
                     } else if (group.equalsIgnoreCase("admin") && newsesession != null) {
-                        response.sendRedirect("index.html");
+                        response.sendRedirect("admin.jsp");
                     }
                 } else {
             %>

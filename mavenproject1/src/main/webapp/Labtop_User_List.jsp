@@ -108,37 +108,47 @@
             prod_src_arr = prod_src.toArray(prod_src_arr);
             int i = 0;
 //            
+        
             re=st.executeQuery(sql);
-            while (re.next()) {
-//           
+            while (i < prod_price_arr.length) {  
         %>
-
         <main>
             <div class="product">
-                <img src="<%out.print(prod_src_arr[i]);%>" alt="Product Image">
-                <!--<h2><% //out.print(prod_name_arr[i]);%></h2>-->
-                <h2><%out.print(re.getString("prod_name"));%></h2>
-                <!--<p><% //out.print(prod_descrip_arr[i]);%></p>-->
-                <p><%out.print(re.getString("prod_description"));%></p>
-                <!--<p><% //out.print(prod_price_arr[i]);%></p>-->
-                <p><%out.print(re.getString("prod_price").toString());%></p>
-                <button>Add to Cart</button>
-            <!--</div>-->
-            <!--<div class="product">-->
-                 <!--<img src="<% //out.print(prod_src_arr[i+1]);%>" alt="Product Image">-->
-                 <!--<h2><% //out.print(prod_name_arr[i+1]);%></h2>-->
+                 <img src="<%out.print(prod_src_arr[i]);%>" alt="Product Image">
+                <h2><%out.print(prod_name_arr[i]);%></h2>
                 <!--<h2><% //out.print(re.getString("prod_name"));%></h2>-->
-                <!--<p><% //out.print(prod_descrip_arr[i+1]);%></p>-->
+                <p><%out.print(prod_descrip_arr[i]);%></p>
                 <!--<p><% //out.print(re.getString("prod_description"));%></p>-->
-                <!--<p><% //out.print(prod_price_arr[i+1]);%></p>-->
+                <p><%out.print(prod_price_arr[i]);%></p>
                 <!--<p><% //out.print(re.getString("prod_price").toString());%></p>-->
-                <!--<button>Add to Cart</button>-->
-            <!--</div>-->
-
+                <button id="but<%=i + 1%>" class="add-to-cart">Add to Cart</button>
+            </div>
+            
         </main>
 
-        <% //i++;
-            }%>
+        <%i++;}%>
+        
+        <script>
+  let addToCartButtons = document.querySelectorAll(".add-to-cart");
+
+  addToCartButtons.forEach((button, index) => {
+    button.addEventListener("click", () => {
+      let xhr = new XMLHttpRequest();
+      xhr.open("POST", "Inserttocard");
+      xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xhr.onreadystatechange = function() {
+        if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+          if (this.responseText === "success") {
+            alert("Inserted into database!");
+          } else {
+            alert("Insert failed");
+          }
+        }
+      };
+      xhr.send(`prod_id=${index+1}&prod_price=${prod_price_arr[index]}&cardp_quantity=1`);
+    });
+  });
+</script>
 
     </body>
 </html>

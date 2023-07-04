@@ -4,9 +4,17 @@
         <servlet-name>Validition</servlet-name>
         <servlet-class>servlat.Validition</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Inserttocard</servlet-name>
+        <servlet-class>servlat.Inserttocard</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Validition</servlet-name>
         <url-pattern>/Validition</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Inserttocard</servlet-name>
+        <url-pattern>/Inserttocard</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
